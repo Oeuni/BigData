@@ -29,6 +29,4 @@ printf();
 ```
 
 
-> 가비지 컬렉션 (Garbage Collection)
->> 필요성, 메커니즘, 코드
->>> 어떻게 하면 GC로도 메모리 leak이 발생될까?
+
