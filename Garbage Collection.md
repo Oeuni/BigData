@@ -41,7 +41,7 @@ a는 참조이고, new object() 부분에서 힙에 할당되는 객체가 생�
 
 ---
 
-## 6. 가비지 컬렉션 과정
+## 6. 가비지 컬렉션 과정 - 1
 
 ![image](https://github.com/Oeuni/BigData/assets/100830777/b7dd87e3-8b0e-48e9-bcbb-83a19c50713b)  
 
@@ -51,6 +51,7 @@ a는 참조이고, new object() 부분에서 힙에 할당되는 객체가 생�
 ● 루트 목록은 가비지 컬렉터가 참조하는 중요 자료이다.  
 
 ---
+## 6. 가비지 컬렉션 과정 - 1
 
 ![image](https://github.com/Oeuni/BigData/assets/100830777/285af0b3-02cb-4d36-aabd-a4a25da483b5)  
 
@@ -61,6 +62,7 @@ a는 참조이고, new object() 부분에서 힙에 할당되는 객체가 생�
 ● 쓰레기 객체가 차지하고 있던 메모리는 이제 '비어있는 공간'이 된다.
 
 ---
+## 6. 가비지 컬렉션 과정 - 1
 
 ![image](https://github.com/Oeuni/BigData/assets/100830777/ab50fddc-f986-4561-808d-cff02df9c489)  
 루트 목록에 대한 조사 후, 가비지 컬렉터는 힙을 순회하며 쓰레기가 차지하고 있던 '비어있는 공간'으로 쓰레기의 인접한 객체들을 이동하여 정리한다.
