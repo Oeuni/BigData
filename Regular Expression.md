@@ -155,4 +155,102 @@ aabb # 매치안됨
 
 ---
 
+## 정규 표현식의 사용
+
+#### 모듈 import
+Python 에서는 re 모듈을 통해 정규표현식을 사용한다.
+```python
+import re
+```
+---
+
+#### compile 정규표현식 컴파일
+re.compile() 명령을 통해 정규표현식을 컴파일하여 변수에 저장한 후 사용할 수 있다.
+정규표현식을 컴파일하여 변수에 할당한 후 타입을 확인해보면 _sre.SRE_Pattern 이라는 이름의 클래스 객체인 것을 볼 수 있다.
+```python
+변수이름 = re.compile('정규표현식')
+
+p = re.compile('[abc]')
+print(type(p))
+```
+---
+
+#### 패턴 객체의 메소드
+예시는 아래 코드를 사용한다.
+```python
+p = re.compile('[a-z]+')
+```
+---
+##### match: 시작부터 일치하는 패턴 찾기
+문자열의 처음 시작부터 검색하여 일치하지 않는 부분이 나올 때까지 찾는다.
+```python
+p.match('aaaaa')
+<_sre.SRE_Match object; span=(0, 5), match='aaaaa'>
+
+p.match('bbbbbbbbb')
+<_sre.SRE_Match object; span=(0, 9), match='bbbbbbbbb'>
+
+p.match('1aaaa')
+None
+
+p.match('aaa1aaa')
+<_sre.SRE_Match object; span=(0, 3), match='aaa'>
+```
+검색 결과 : _sre.SRE_Match 객체 리턴
+
+---
+##### search: 전체 문자열에서 첫 번째 매치 찾기
+문자열 전체에서 검색하여 처음으로 매치되는 문자열을 찾는다.
+```python
+p.search('aaaaa')
+<_sre.SRE_Match object; span=(0, 5), match='aaaaa'>
+
+p.search('11aaaa')
+<_sre.SRE_Match object; span=(2, 6), match='aaaa'>
+
+p.search('aaa11aaa')
+<_sre.SRE_Match object; span=(0, 3), match='aaa'>
+
+p.search('1aaa11aaa1')
+<_sre.SRE_Match object; span=(1, 4), match='aaa'>
+```
+match와 동일한 형태로 결과를 출력해준다.
+
+---
+##### findall: 모든 매치를 찾아 리스트로 반환
+문자열 내에서 일치하는 모든 패턴을 찾아 리스트로 반환한다.
+```python
+p.findall('aaa')
+['aaa']
+
+p.findall('11aaa')
+['aaa']
+
+p.findall('1a1a1a1a1a')
+['a', 'a', 'a', 'a', 'a']
+
+p.findall('1aa1aaa1a1aa1aaa')
+['aa', 'aaa', 'a', 'aa', 'aaa']
+```
+---
+
+##### finditer: 모든 매치를 찾아 반복가능 객체로 반환
+
+```python
+p.finditer('a1bb1ccc')
+<callable_iterator object at 0x7f850c4285f8>
+//callable_iterator라는 객체가 반환
+
+//for문을 사용하여 하나씩 출력
+f_iter = p.finditer('a1bb1ccc')
+for i in f_iter:
+    print(i)
+```
+
+출력 결과
+<_sre.SRE_Match object; span=(0, 1), match='a'>
+<_sre.SRE_Match object; span=(2, 4), match='bb'>
+<_sre.SRE_Match object; span=(5, 8), match='ccc'>
+
+---
 
