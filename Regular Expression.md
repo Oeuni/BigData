@@ -253,4 +253,76 @@ for i in f_iter:
 <_sre.SRE_Match object; span=(5, 8), match='ccc'>  
 
 ---
+#### () 그룹화
+정규표현식을 () 안에 넣으면 그 부분만 그룹화된다. groups 메서드를 통해 그룹들을 튜플 형태로 리턴 할 수 있다.
+```python
+p = re.search('(hello)(world)', 'helloworld') # 정규표현식 hello와 world의 매치 결과를 각각 그룹화하였다
+grouping = p.groups()
+print(grouping)
+```
+('hello', 'world') # 각 그룹의 매치 결과가 튜플로 묶여서 리턴됨
+group 메서드를 통해 각 그룹을 호출할 수 있다.
+```python
+p.group() # 인자를 넣지 않으면 전체 매치 결과 리턴
+helloworld
 
+p.group(0) # group()와 같다
+helloworld
+
+p.group(1) # 1번 그룹 매치 결과 리턴
+hello
+
+p.group(2) # 2번 그룹 매치 결과 리턴
+world
+```
+---
+
+## 5. 정규 표현식 예제
+
+#### 전화번호 뽑아내기 - 패턴
+전화번호의 패턴이 032-232-3245같이 3자리-3자리-4자리로 구성되어 있다고 가정했을 때
+```python
+import re
+ 
+text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
+ 
+regex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
+matchobj = regex.search(text)
+phonenumber = matchobj.group()
+print(phonenumber) 
+```
+출력 결과 : 032-232-3245
+
+---
+#### 전화번호 뽑아내기 - 그룹화1
+전화번호의 패턴을 \d{3}-\d{3}-\d{4} 와 같이 표현하였을 때, 지역번호 3자를 그룹1으로 하고 나머지 7자리를 그룹2로 분리하고 싶을 때, (\d{3})-(\d{3}-\d{4}) 와 같이 둥근 괄호로 묶어 두 그룹으로 분리할 수 있다.
+이렇게 분리된 그룹들은 MatchObject의 group() 메서드에서 그룹 번호를 파라미터로 넣어 값을 가져올 수 있는데, 첫번째 그룹 지역번호는 group(1) 으로, 두번째 그룹은 group(2) 와 같이 사용한다. 그리고 전체 전화번호를 가져올 때는 group() 혹은 group(0) 을 사용한다.
+```python
+import re
+ 
+text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
+ 
+regex = re.compile(r'(\d{3})-(\d{3}-\d{4})')
+matchobj = regex.search(text)
+areaCode = matchobj.group(1)
+num = matchobj.group(2)
+fullNum = matchobj.group()
+print(areaCode, num) 
+```
+출력 결과는 위와 동일하다.
+
+---
+#### 전화번호 뽑아내기 - 그룹화2
+그룹을 위와 같이 숫자로 인덱싱하는 대신 그룹이름을 지정할 수도 있는데 이를 정규식에서 Named Capturing Group 이라 한다. 파이썬에서 Named Capturing Group을 사용하는 방법은 (?P<그룹명>정규식) 와 같이 정규식 표현 앞에 ?P<그룹명>을 쓰면 된다. 그리고 이후 MatchObject에서 group('그룹명') 을 호출하면 캡쳐된 그룹 값을 얻을 수 있다.
+```python
+import re
+ 
+text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
+ 
+regex = re.compile(r'(?P<area>\d{3})-(?P<num>\d{3}-\d{4})')
+matchobj = regex.search(text)
+areaCode = matchobj.group("area")
+num = matchobj.group("num")
+print(areaCode, num)  # 032 232-3245
+</num>
+```
