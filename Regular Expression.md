@@ -294,7 +294,7 @@ print(phonenumber)
 출력 결과 : 032-232-3245
 
 ---
-#### 전화번호 뽑아내기 - 그룹화1
+#### 전화번호 뽑아내기 - 그룹화
 전화번호의 패턴을 \d{3}-\d{3}-\d{4} 와 같이 표현하였을 때, 지역번호 3자를 그룹1으로 하고 나머지 7자리를 그룹2로 분리하고 싶을 때, (\d{3})-(\d{3}-\d{4}) 와 같이 둥근 괄호로 묶어 두 그룹으로 분리할 수 있다.
 이렇게 분리된 그룹들은 MatchObject의 group() 메서드에서 그룹 번호를 파라미터로 넣어 값을 가져올 수 있는데, 첫번째 그룹 지역번호는 group(1) 으로, 두번째 그룹은 group(2) 와 같이 사용한다. 그리고 전체 전화번호를 가져올 때는 group() 혹은 group(0) 을 사용한다.
 ```python
@@ -310,19 +310,3 @@ fullNum = matchobj.group()
 print(areaCode, num) 
 ```
 출력 결과는 위와 동일하다.
-
----
-#### 전화번호 뽑아내기 - 그룹화2
-그룹을 위와 같이 숫자로 인덱싱하는 대신 그룹이름을 지정할 수도 있는데 이를 정규식에서 Named Capturing Group 이라 한다. 파이썬에서 Named Capturing Group을 사용하는 방법은 (?P<그룹명>정규식) 와 같이 정규식 표현 앞에 ?P<그룹명>을 쓰면 된다. 그리고 이후 MatchObject에서 group('그룹명') 을 호출하면 캡쳐된 그룹 값을 얻을 수 있다.
-```python
-import re
- 
-text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
- 
-regex = re.compile(r'(?P<area>\d{3})-(?P<num>\d{3}-\d{4})')
-matchobj = regex.search(text)
-areaCode = matchobj.group("area")
-num = matchobj.group("num")
-print(areaCode, num)  # 032 232-3245
-</num>
-```
