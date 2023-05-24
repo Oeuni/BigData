@@ -247,10 +247,10 @@ for i in f_iter:
     print(i)
 ```
 
-출력 결과
-<_sre.SRE_Match object; span=(0, 1), match='a'>
-<_sre.SRE_Match object; span=(2, 4), match='bb'>
-<_sre.SRE_Match object; span=(5, 8), match='ccc'>
+출력 결과  
+<_sre.SRE_Match object; span=(0, 1), match='a'>  
+<_sre.SRE_Match object; span=(2, 4), match='bb'>  
+<_sre.SRE_Match object; span=(5, 8), match='ccc'>  
 
 ---
 
